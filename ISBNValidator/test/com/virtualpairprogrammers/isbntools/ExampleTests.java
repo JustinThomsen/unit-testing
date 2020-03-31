@@ -21,4 +21,19 @@ public class ExampleTests {
         boolean result = validator.checkISBN("0140449117");
         assertFalse(result);
     }
+
+    @Test
+    public void nineDigitNumberNotAllowed(){
+        ValidateISBN validator = new ValidateISBN();
+
+        assertThrows(NumberFormatException.class, () -> validator.checkISBN("123456789"));
+    }
+
+    @Test
+    public void ISBNNumbersMustBeNumbers(){
+        ValidateISBN validator = new ValidateISBN();
+
+        assertThrows(NumberFormatException.class, () -> validator.checkISBN("helloworld"));
+
+    }
 }

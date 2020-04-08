@@ -5,6 +5,8 @@ public class ValidateISBN {
     public static final int ISBN_LONG_MULTIPLIER = 10;
     public static final int X_DIGIT_VALUE = 10;
     public static final char LAST_SPECIAL_CHARACTER = 'X';
+    public static final int ODD_NUMBER_MULTIPLIER = 3;
+    public static final int EVEN_NUMBER_MULTIPLIER = 1;
     final int ISBN_SHORT = 10;
     final int ISBN_LONG = 13;
 
@@ -39,27 +41,16 @@ public class ValidateISBN {
         return total;
     }
 
-    private int swapLastXfor10(String isbn) {
-        int digit = isbn.charAt(isbn.length() - 1);
-        if (digit == LAST_SPECIAL_CHARACTER) {
-            digit =X_DIGIT_VALUE;
-        }
-        return digit;
-    }
-
     private int getTotalForLongISBN(String isbn) {
         int total = 0;
-        int amtToMultiply;
+
         char isbnDigit;
         for (int i = 0; i < ISBN_LONG; i++) {
+            int amtToMultiply = ODD_NUMBER_MULTIPLIER;
             isbnDigit = isbn.charAt(i);
-            if (i == isbn.length() - 1 && isbnDigit == LAST_SPECIAL_CHARACTER) {
-                isbnDigit = X_DIGIT_VALUE;
-            }
+
             if (i % 2 == 0) {
-                amtToMultiply = 1;
-            } else {
-                amtToMultiply = 3;
+                amtToMultiply = EVEN_NUMBER_MULTIPLIER;
             }
             total = total + Character.getNumericValue(isbnDigit) * amtToMultiply;
         }
